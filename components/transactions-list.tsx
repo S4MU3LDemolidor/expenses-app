@@ -47,7 +47,7 @@ export function TransactionsList({ transactions, onDeleteTransaction, onUpdateTr
       return matchesSearch && matchesType
     })
     .sort((a, b) => {
-      let aValue: any, bValue: any
+      let aValue: string | number | Date, bValue: string | number | Date
 
       switch (sortBy) {
         case "date":

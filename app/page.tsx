@@ -103,7 +103,6 @@ export default function FinanceTracker() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
   const [customQuotes, setCustomQuotes] = useState<CustomQuote[]>([])
-  const [appConfig, setAppConfig] = useState<AppConfig | null>(null)
   const [isLoaded, setIsLoaded] = useState(false)
 
   // Load data from cookies only on client side
@@ -201,7 +200,6 @@ export default function FinanceTracker() {
   }
 
   const handleConfigChange = (config: AppConfig) => {
-    setAppConfig(config)
     // Apply theme change if it's different
     if (config.theme !== theme) {
       setTheme(config.theme === "system" ? "system" : config.theme)

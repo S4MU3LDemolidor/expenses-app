@@ -188,7 +188,10 @@ export function GoalTracker({ goals, onAddGoal, onUpdateGoal, currentBalance }: 
                         </span>
                       </CardDescription>
                     </div>
-                    <Badge variant={goalStatus.color as any} className="self-start text-xs">
+                    <Badge
+                      variant={goalStatus.color as "default" | "destructive" | "outline" | "secondary"}
+                      className="self-start text-xs"
+                    >
                       {goalStatus.status}
                     </Badge>
                   </div>

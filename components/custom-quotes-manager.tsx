@@ -199,7 +199,9 @@ export function CustomQuotesManager({
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <blockquote className="text-lg italic border-l-4 border-primary pl-4">"{quote.text}"</blockquote>
+                      <blockquote className="text-lg italic border-l-4 border-primary pl-4">
+                        <span>&ldquo;{quote.text}&rdquo;</span>
+                      </blockquote>
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <span className="text-sm font-medium">— {quote.author}</span>

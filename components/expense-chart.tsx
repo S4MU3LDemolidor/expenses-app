@@ -1,7 +1,7 @@
 "use client"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { type ChartConfig, ChartTooltip } from "@/components/ui/chart"
+import { ChartTooltip } from "@/components/ui/chart"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
 import { useState } from "react"
@@ -66,12 +66,6 @@ export function ExpenseChart({ transactions }: ExpenseChartProps) {
       fill: COLORS[index % COLORS.length],
     }))
     .sort((a, b) => b.amount - a.amount)
-
-  const chartConfig = {
-    amount: {
-      label: "Amount",
-    },
-  } satisfies ChartConfig
 
   const totalExpenses = chartData.reduce((sum, item) => sum + item.amount, 0)
   const highestCategory = chartData[0]
@@ -155,8 +149,8 @@ export function ExpenseChart({ transactions }: ExpenseChartProps) {
                     outerRadius={80}
                     label={({ category, percent }) => `${category} ${(percent * 100).toFixed(0)}%`}
                   >
-                    {chartData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.fill} />
+                    {chartData.map((entry) => (
+                      <Cell key={`cell-${entry.category}`} fill={entry.fill} />
                     ))}
                   </Pie>
                 </PieChart>

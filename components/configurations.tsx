@@ -238,7 +238,7 @@ export function Configurations({
     setHasUnsavedChanges(true)
   }
 
-  const updateNestedConfig = (section: keyof AppConfig, updates: any) => {
+  const updateNestedConfig = (section: keyof AppConfig, updates: Record<string, unknown>) => {
     const newConfig = {
       ...config,
       [section]: { ...config[section], ...updates },
@@ -288,7 +288,7 @@ export function Configurations({
         const data = JSON.parse(e.target?.result as string)
 
         // Validate and import data
-        const importData: any = {}
+        const importData: Record<string, unknown> = {}
         if (data.transactions && Array.isArray(data.transactions)) {
           importData.transactions = data.transactions
         }
@@ -305,7 +305,7 @@ export function Configurations({
 
         onDataImport(importData)
         alert("Data imported successfully!")
-      } catch (error) {
+      } catch {
         alert("Failed to import data. Please check the file format.")
       }
     }

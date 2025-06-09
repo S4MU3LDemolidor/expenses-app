@@ -39,7 +39,7 @@ export function ExportButtons({ transactions, goals }: ExportButtonsProps) {
     })
   }
 
-  const exportToCSV = (data: any[], filename: string) => {
+  const exportToCSV = (data: Record<string, unknown>[], filename: string) => {
     if (data.length === 0) return
 
     const headers = Object.keys(data[0])
@@ -62,7 +62,7 @@ export function ExportButtons({ transactions, goals }: ExportButtonsProps) {
     downloadFile(csvContent, filename, "text/csv")
   }
 
-  const exportToJSON = (data: any[], filename: string) => {
+  const exportToJSON = (data: Record<string, unknown>[], filename: string) => {
     const jsonContent = JSON.stringify(data, null, 2)
     downloadFile(jsonContent, filename, "application/json")
   }
@@ -81,7 +81,7 @@ export function ExportButtons({ transactions, goals }: ExportButtonsProps) {
 
   const handleExport = () => {
     const timestamp = new Date().toISOString().split("T")[0]
-    let data: any[] = []
+    let data: Record<string, unknown>[] = []
     let filename = ""
 
     if (dataType === "transactions") {

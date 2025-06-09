@@ -402,7 +402,7 @@ export function SuggestionsPanel({
           </CardHeader>
           <CardContent>
             <blockquote className="italic text-muted-foreground border-l-4 border-blue-500 pl-4">
-              "{weeklyMotivation.quote}"
+              &ldquo;{weeklyMotivation.quote}&rdquo;
             </blockquote>
             <div className="mt-3 text-xs text-muted-foreground">
               This motivation changes every week to keep you inspired on your financial journey.
