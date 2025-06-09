@@ -238,7 +238,7 @@ export function Configurations({
     setHasUnsavedChanges(true)
   }
 
-  const updateNestedConfig = (section: keyof AppConfig, updates: Record<string, unknown>) => {
+  const updateNestedConfig = <T extends keyof AppConfig>(section: T, updates: Partial<AppConfig[T]>) => {
     const newConfig = {
       ...config,
       [section]: { ...config[section], ...updates },
