@@ -195,7 +195,7 @@ export function ExpenseChart({ transactions }: ExpenseChartProps) {
           <div className="mt-4 space-y-2">
             <div className="text-sm font-medium">Total Expenses: ${totalExpenses.toFixed(2)}</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-xs">
-              {chartData.slice(0, 6).map((item, index) => (
+              {chartData.slice(0, 6).map((item) => (
                 <div key={item.category} className="flex items-center gap-2">
                   <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.fill }} />
                   <span className="truncate">
