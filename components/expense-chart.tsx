@@ -171,7 +171,12 @@ export function ExpenseChart({ transactions }: ExpenseChartProps) {
                               </div>
                               <div className="flex flex-col">
                                 <span className="text-[0.70rem] uppercase text-muted-foreground">Amount</span>
-                                <span className="font-bold">${payload[0].value?.toFixed(2)}</span>
+                                <span className="font-bold">
+                                  $
+                                  {typeof payload[0].value === "number"
+                                    ? payload[0].value.toFixed(2)
+                                    : payload[0].value}
+                                </span>
                               </div>
                             </div>
                           </div>
