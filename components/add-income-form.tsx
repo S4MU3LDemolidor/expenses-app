@@ -16,9 +16,9 @@ interface AddIncomeFormProps {
   onAddTransaction: (transaction: Omit<Transaction, "id">) => void
 }
 
-const incomeSources = ["Salary", "Freelance", "Business", "Investment", "Rental", "Gift", "Other"]
+const incomeSources = ["Salário", "Freelance", "Negócio", "Investimento", "Aluguel", "Presente", "Outros"]
 
-const commonTags = ["Monthly", "One-time", "Bonus", "Side-hustle", "Passive"]
+const commonTags = ["Mensal", "Único", "Bônus", "Trabalho Extra", "Passivo"]
 
 export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
   const [source, setSource] = useState("")
@@ -68,17 +68,17 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
   return (
     <Card className="max-w-2xl mx-auto px-2 sm:px-0">
       <CardHeader>
-        <CardTitle className="text-2xl">Add Income</CardTitle>
-        <CardDescription>Record your income to track your financial progress</CardDescription>
+        <CardTitle className="text-2xl">Adicionar Receita</CardTitle>
+        <CardDescription>Registre suas receitas para acompanhar seu progresso financeiro</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="source">Income Source</Label>
+              <Label htmlFor="source">Fonte de Receita</Label>
               <Select value={source} onValueChange={setSource}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select income source" />
+                  <SelectValue placeholder="Selecione a fonte de receita" />
                 </SelectTrigger>
                 <SelectContent>
                   {incomeSources.map((src) => (
@@ -91,7 +91,7 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount ($)</Label>
+              <Label htmlFor="amount">Valor (R$)</Label>
               <Input
                 id="amount"
                 type="number"
@@ -99,19 +99,19 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
                 min="0"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                placeholder="0.00"
+                placeholder="0,00"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">Data</Label>
             <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
           </div>
 
           <div className="space-y-4">
-            <Label>Tags (Optional)</Label>
+            <Label>Tags (Opcional)</Label>
 
             {/* Selected Tags */}
             {tags.length > 0 && (
@@ -127,7 +127,7 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
 
             {/* Common Tags */}
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Quick tags:</p>
+              <p className="text-sm text-muted-foreground">Tags rápidas:</p>
               <div className="flex flex-wrap gap-1 sm:gap-2">
                 {commonTags.map((tag) => (
                   <Button
@@ -148,7 +148,7 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
             {/* Custom Tag Input */}
             <div className="flex gap-2 flex-col sm:flex-row">
               <Input
-                placeholder="Add custom tag"
+                placeholder="Adicionar tag personalizada"
                 value={customTag}
                 onChange={(e) => setCustomTag(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addCustomTag())}
@@ -160,7 +160,7 @@ export function AddIncomeForm({ onAddTransaction }: AddIncomeFormProps) {
           </div>
 
           <Button type="submit" className="w-full" disabled={!source || !amount}>
-            Add Income
+            Adicionar Receita
           </Button>
         </form>
       </CardContent>

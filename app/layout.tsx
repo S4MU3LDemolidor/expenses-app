@@ -4,8 +4,8 @@ import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 
 export const metadata: Metadata = {
-  title: "Personal Finance Tracker",
-  description: "Take control of your finances and achieve your goals",
+  title: "Controle Financeiro Pessoal",
+  description: "Assuma o controle das suas finanças e alcance seus objetivos",
   generator: "v0.dev",
 }
 
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="pt-BR" suppressHydrationWarning>
       <body>
         <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange>
           {children}

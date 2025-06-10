@@ -18,21 +18,21 @@ interface AddExpenseFormProps {
 }
 
 const expenseCategories = [
-  "Food & Dining",
-  "Transportation",
-  "Shopping",
-  "Entertainment",
-  "Bills & Utilities",
-  "Healthcare",
-  "Education",
-  "Travel",
-  "Home & Garden",
-  "Personal Care",
-  "Gifts & Donations",
-  "Other",
+  "Alimentação",
+  "Transporte",
+  "Compras",
+  "Entretenimento",
+  "Contas e Utilidades",
+  "Saúde",
+  "Educação",
+  "Viagem",
+  "Casa e Jardim",
+  "Cuidados Pessoais",
+  "Presentes e Doações",
+  "Outros",
 ]
 
-const commonTags = ["Essential", "Non-essential", "Recurring", "One-time", "Emergency"]
+const commonTags = ["Essencial", "Não essencial", "Recorrente", "Único", "Emergência"]
 
 export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
   const [category, setCategory] = useState("")
@@ -85,17 +85,17 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
   return (
     <Card className="max-w-2xl mx-auto px-2 sm:px-0">
       <CardHeader>
-        <CardTitle className="text-2xl">Add Expense</CardTitle>
-        <CardDescription>Track your spending to understand where your money goes</CardDescription>
+        <CardTitle className="text-2xl">Adicionar Despesa</CardTitle>
+        <CardDescription>Acompanhe seus gastos para entender onde seu dinheiro está sendo usado</CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
+              <Label htmlFor="category">Categoria</Label>
               <Select value={category} onValueChange={setCategory}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select category" />
+                  <SelectValue placeholder="Selecione a categoria" />
                 </SelectTrigger>
                 <SelectContent>
                   {expenseCategories.map((cat) => (
@@ -108,7 +108,7 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount ($)</Label>
+              <Label htmlFor="amount">Valor (R$)</Label>
               <Input
                 id="amount"
                 type="number"
@@ -116,30 +116,30 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
                 min="0"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
-                placeholder="0.00"
+                placeholder="0,00"
                 required
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description">Descrição (Opcional)</Label>
             <Textarea
               id="description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="What did you spend on?"
+              placeholder="Em que você gastou?"
               rows={3}
             />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">Data</Label>
             <Input id="date" type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
           </div>
 
           <div className="space-y-4">
-            <Label>Tags (Optional)</Label>
+            <Label>Tags (Opcional)</Label>
 
             {/* Selected Tags */}
             {tags.length > 0 && (
@@ -155,7 +155,7 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
 
             {/* Common Tags */}
             <div className="space-y-2">
-              <p className="text-sm text-muted-foreground">Quick tags:</p>
+              <p className="text-sm text-muted-foreground">Tags rápidas:</p>
               <div className="flex flex-wrap gap-1 sm:gap-2">
                 {commonTags.map((tag) => (
                   <Button
@@ -176,7 +176,7 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
             {/* Custom Tag Input */}
             <div className="flex gap-2 flex-col sm:flex-row">
               <Input
-                placeholder="Add custom tag"
+                placeholder="Adicionar tag personalizada"
                 value={customTag}
                 onChange={(e) => setCustomTag(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && (e.preventDefault(), addCustomTag())}
@@ -188,7 +188,7 @@ export function AddExpenseForm({ onAddTransaction }: AddExpenseFormProps) {
           </div>
 
           <Button type="submit" className="w-full" disabled={!category || !amount}>
-            Add Expense
+            Adicionar Despesa
           </Button>
         </form>
       </CardContent>

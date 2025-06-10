@@ -85,15 +85,15 @@ export interface Goal {
 }
 
 const navigationItems = [
-  { id: "dashboard", label: "Dashboard", icon: Home },
-  { id: "transactions", label: "Transactions", icon: List },
-  { id: "add-income", label: "Add Income", icon: TrendingUp },
-  { id: "add-expense", label: "Add Expense", icon: TrendingDown },
-  { id: "overview", label: "Charts & Analytics", icon: BarChart3 },
-  { id: "goals", label: "Goals", icon: Target },
+  { id: "dashboard", label: "Painel", icon: Home },
+  { id: "transactions", label: "Transações", icon: List },
+  { id: "add-income", label: "Adicionar Receita", icon: TrendingUp },
+  { id: "add-expense", label: "Adicionar Despesa", icon: TrendingDown },
+  { id: "overview", label: "Gráficos e Análises", icon: BarChart3 },
+  { id: "goals", label: "Metas", icon: Target },
   { id: "insights", label: "Insights", icon: Lightbulb },
-  { id: "export", label: "Export Data", icon: Download },
-  { id: "custom-quotes", label: "Custom Quotes", icon: Quote },
+  { id: "export", label: "Exportar Dados", icon: Download },
+  { id: "custom-quotes", label: "Frases Personalizadas", icon: Quote },
 ]
 
 export default function FinanceTracker() {
@@ -238,7 +238,7 @@ export default function FinanceTracker() {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center space-y-4">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="text-muted-foreground">Loading your financial data...</p>
+          <p className="text-muted-foreground">Carregando seus dados financeiros...</p>
         </div>
       </div>
     )
@@ -255,7 +255,7 @@ export default function FinanceTracker() {
     .filter((t) => t.type === "expense")
     .reduce(
       (acc, t) => {
-        const category = t.category || "Other"
+        const category = t.category || "Outros"
         acc[category] = (acc[category] || 0) + t.amount
         return acc
       },
@@ -275,7 +275,7 @@ export default function FinanceTracker() {
     if (isOverspending) {
       notifications.push({
         type: "overspending",
-        message: "Expenses exceed income",
+        message: "Despesas excedem receitas",
         severity: "high",
       })
     }
@@ -291,7 +291,7 @@ export default function FinanceTracker() {
       if (currentBalance >= goal.targetAmount - goal.currentAmount && progress < 100) {
         notifications.push({
           type: "goal-achievable",
-          message: `You can complete "${goal.title}"`,
+          message: `Você pode completar "${goal.title}"`,
           severity: "medium",
         })
       }
@@ -300,7 +300,7 @@ export default function FinanceTracker() {
       if (daysUntilDeadline <= 7 && daysUntilDeadline > 0 && progress < 100) {
         notifications.push({
           type: "goal-deadline",
-          message: `"${goal.title}" due in ${daysUntilDeadline} days`,
+          message: `"${goal.title}" vence em ${daysUntilDeadline} dias`,
           severity: "medium",
         })
       }
@@ -309,7 +309,7 @@ export default function FinanceTracker() {
       if (daysUntilDeadline < 0 && progress < 100) {
         notifications.push({
           type: "goal-overdue",
-          message: `"${goal.title}" is overdue`,
+          message: `"${goal.title}" está atrasada`,
           severity: "high",
         })
       }
@@ -323,7 +323,7 @@ export default function FinanceTracker() {
 
   const getCurrentSectionTitle = () => {
     const currentItem = navigationItems.find((item) => item.id === activeSection)
-    return currentItem?.label || "Dashboard"
+    return currentItem?.label || "Painel"
   }
 
   const getMenuItemBadgeCount = (itemId: string) => {
@@ -345,10 +345,10 @@ export default function FinanceTracker() {
     const diffTime = now.getTime() - date.getTime()
     const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
 
-    if (diffDays === 0) return "Today"
-    if (diffDays === 1) return "Yesterday"
-    if (diffDays < 7) return `${diffDays} days ago`
-    return date.toLocaleDateString()
+    if (diffDays === 0) return "Hoje"
+    if (diffDays === 1) return "Ontem"
+    if (diffDays < 7) return `${diffDays} dias atrás`
+    return date.toLocaleDateString("pt-BR")
   }
 
   const renderContent = () => {
@@ -360,32 +360,32 @@ export default function FinanceTracker() {
             <div className="grid gap-3 sm:gap-4 grid-cols-2 lg:grid-cols-4">
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Income</CardTitle>
+                  <CardTitle className="text-sm font-medium">Total de Receitas</CardTitle>
                   <TrendingUp className="h-4 w-4 text-green-600" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-green-600">${totalIncome.toFixed(2)}</div>
+                  <div className="text-2xl font-bold text-green-600">R$ {totalIncome.toFixed(2)}</div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
+                  <CardTitle className="text-sm font-medium">Total de Despesas</CardTitle>
                   <TrendingDown className="h-4 w-4 text-red-600" />
                 </CardHeader>
                 <CardContent>
-                  <div className="text-2xl font-bold text-red-600">${totalExpenses.toFixed(2)}</div>
+                  <div className="text-2xl font-bold text-red-600">R$ {totalExpenses.toFixed(2)}</div>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle className="text-sm font-medium">Current Balance</CardTitle>
+                  <CardTitle className="text-sm font-medium">Saldo Atual</CardTitle>
                   <DollarSign className={`h-4 w-4 ${currentBalance >= 0 ? "text-green-600" : "text-red-600"}`} />
                 </CardHeader>
                 <CardContent>
                   <div className={`text-2xl font-bold ${currentBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
-                    ${currentBalance.toFixed(2)}
+                    R$ {currentBalance.toFixed(2)}
                   </div>
                 </CardContent>
               </Card>
@@ -401,7 +401,7 @@ export default function FinanceTracker() {
                 </CardHeader>
                 <CardContent>
                   <Badge variant={isOverspending ? "destructive" : "default"}>
-                    {isOverspending ? "Overspending" : "On Track"}
+                    {isOverspending ? "Gastando Demais" : "No Caminho Certo"}
                   </Badge>
                 </CardContent>
               </Card>
@@ -425,7 +425,7 @@ export default function FinanceTracker() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Plus className="h-5 w-5" />
-                    Quick Actions
+                    Ações Rápidas
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-2">
@@ -435,7 +435,7 @@ export default function FinanceTracker() {
                     variant="outline"
                   >
                     <TrendingUp className="h-4 w-4 mr-2" />
-                    Add Income
+                    Adicionar Receita
                   </Button>
                   <Button
                     onClick={() => handleNavigation("add-expense")}
@@ -443,11 +443,11 @@ export default function FinanceTracker() {
                     variant="outline"
                   >
                     <TrendingDown className="h-4 w-4 mr-2" />
-                    Add Expense
+                    Adicionar Despesa
                   </Button>
                   <Button onClick={() => handleNavigation("goals")} className="w-full justify-start" variant="outline">
                     <Target className="h-4 w-4 mr-2" />
-                    Set Goal
+                    Definir Meta
                   </Button>
                 </CardContent>
               </Card>
@@ -456,7 +456,7 @@ export default function FinanceTracker() {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <PieChart className="h-5 w-5" />
-                    Spending Overview
+                    Resumo de Gastos
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -468,15 +468,15 @@ export default function FinanceTracker() {
                         .map(([category, amount]) => (
                           <div key={category} className="flex justify-between items-center">
                             <span className="text-sm">{category}</span>
-                            <span className="font-medium">${amount.toFixed(2)}</span>
+                            <span className="font-medium">R$ {amount.toFixed(2)}</span>
                           </div>
                         ))}
                       <Button onClick={() => handleNavigation("overview")} variant="link" className="w-full p-0 h-auto">
-                        View detailed breakdown →
+                        Ver detalhamento completo →
                       </Button>
                     </div>
                   ) : (
-                    <p className="text-sm text-muted-foreground">No expenses recorded yet</p>
+                    <p className="text-sm text-muted-foreground">Nenhuma despesa registrada ainda</p>
                   )}
                 </CardContent>
               </Card>
@@ -550,7 +550,7 @@ export default function FinanceTracker() {
         )
 
       default:
-        return <div>Section not found</div>
+        return <div>Seção não encontrada</div>
     }
   }
 
@@ -571,19 +571,19 @@ export default function FinanceTracker() {
                     {highPriorityNotifications}
                   </Badge>
                 )}
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">Alternar menu</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-[320px] sm:w-[380px] overflow-y-auto p-4 sm:p-6">
               <SheetHeader>
-                <SheetTitle className="text-left">Navigation</SheetTitle>
+                <SheetTitle className="text-left">Navegação</SheetTitle>
               </SheetHeader>
 
               {/* Dark Mode Toggle */}
               <div className="flex items-center justify-between p-3 rounded-lg bg-muted/50">
                 <div className="flex items-center space-x-2">
                   <Sun className="h-4 w-4" />
-                  <span className="text-sm font-medium">Dark Mode</span>
+                  <span className="text-sm font-medium">Modo Escuro</span>
                   <Moon className="h-4 w-4" />
                 </div>
                 <Switch
@@ -638,7 +638,7 @@ export default function FinanceTracker() {
                 <div className="space-y-3">
                   <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                     <Bell className="h-4 w-4" />
-                    Notifications ({notifications.length})
+                    Notificações ({notifications.length})
                   </h3>
                   <div className="space-y-2">
                     {notifications.slice(0, 3).map((notification, index) => (
@@ -654,7 +654,7 @@ export default function FinanceTracker() {
                       </div>
                     ))}
                     {notifications.length > 3 && (
-                      <p className="text-xs text-muted-foreground">+{notifications.length - 3} more notifications</p>
+                      <p className="text-xs text-muted-foreground">+{notifications.length - 3} mais notificações</p>
                     )}
                   </div>
                 </div>
@@ -667,7 +667,7 @@ export default function FinanceTracker() {
                 <div className="space-y-3">
                   <h3 className="text-sm font-medium text-muted-foreground flex items-center gap-2">
                     <Clock className="h-4 w-4" />
-                    Recent Transactions
+                    Transações Recentes
                   </h3>
                   <div className="space-y-2">
                     {recentTransactions.map((transaction) => (
@@ -683,7 +683,7 @@ export default function FinanceTracker() {
                           )}
                           <div>
                             <div className="text-xs font-medium">
-                              {transaction.source || transaction.category || "Transaction"}
+                              {transaction.source || transaction.category || "Transação"}
                             </div>
                             <div className="text-xs text-muted-foreground">
                               {formatTransactionDate(transaction.date)}
@@ -695,7 +695,7 @@ export default function FinanceTracker() {
                             transaction.type === "income" ? "text-green-600" : "text-red-600"
                           }`}
                         >
-                          {transaction.type === "income" ? "+" : "-"}${transaction.amount.toFixed(2)}
+                          {transaction.type === "income" ? "+" : "-"}R$ {transaction.amount.toFixed(2)}
                         </div>
                       </div>
                     ))}
@@ -707,24 +707,24 @@ export default function FinanceTracker() {
 
               {/* Quick Stats */}
               <div className="space-y-4">
-                <h3 className="text-sm font-medium text-muted-foreground">Quick Stats</h3>
+                <h3 className="text-sm font-medium text-muted-foreground">Estatísticas Rápidas</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span>Balance:</span>
+                    <span>Saldo:</span>
                     <span className={`font-medium ${currentBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
-                      ${currentBalance.toFixed(2)}
+                      R$ {currentBalance.toFixed(2)}
                     </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Income:</span>
-                    <span className="font-medium text-green-600">${totalIncome.toFixed(2)}</span>
+                    <span>Receitas:</span>
+                    <span className="font-medium text-green-600">R$ {totalIncome.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Expenses:</span>
-                    <span className="font-medium text-red-600">${totalExpenses.toFixed(2)}</span>
+                    <span>Despesas:</span>
+                    <span className="font-medium text-red-600">R$ {totalExpenses.toFixed(2)}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span>Transactions:</span>
+                    <span>Transações:</span>
                     <span className="font-medium">{transactions.length}</span>
                   </div>
                 </div>
@@ -734,7 +734,7 @@ export default function FinanceTracker() {
 
           <div className="flex flex-1 items-center justify-between">
             <div>
-              <h1 className="text-lg font-semibold">Personal Finance Tracker</h1>
+              <h1 className="text-lg font-semibold">Controle Financeiro Pessoal</h1>
               <p className="text-sm text-muted-foreground">{getCurrentSectionTitle()}</p>
             </div>
 
@@ -749,9 +749,9 @@ export default function FinanceTracker() {
                 </div>
               )}
               <div className="text-right">
-                <div className="text-xs text-muted-foreground">Balance</div>
+                <div className="text-xs text-muted-foreground">Saldo</div>
                 <div className={`font-medium ${currentBalance >= 0 ? "text-green-600" : "text-red-600"}`}>
-                  ${currentBalance.toFixed(2)}
+                  R$ {currentBalance.toFixed(2)}
                 </div>
               </div>
             </div>

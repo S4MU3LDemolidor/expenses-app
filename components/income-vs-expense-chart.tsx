@@ -60,9 +60,9 @@ export function IncomeVsExpenseChart({ transactions }: IncomeVsExpenseChartProps
       return {
         period:
           timeFilter === "week"
-            ? new Date(period).toLocaleDateString("en-US", { month: "short", day: "numeric" })
+            ? new Date(period).toLocaleDateString("pt-BR", { month: "short", day: "numeric" })
             : timeFilter === "month"
-              ? new Date(period + "-01").toLocaleDateString("en-US", { month: "short", year: "numeric" })
+              ? new Date(period + "-01").toLocaleDateString("pt-BR", { month: "short", year: "numeric" })
               : period,
         income,
         expenses,
@@ -88,10 +88,10 @@ export function IncomeVsExpenseChart({ transactions }: IncomeVsExpenseChartProps
               ) : (
                 <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
               )}
-              Income vs Expenses
+              Receitas vs Despesas
             </CardTitle>
             <CardDescription className="text-sm">
-              {isOverspending ? `Deficit: $${Math.abs(netTotal).toFixed(2)}` : `Surplus: $${netTotal.toFixed(2)}`}
+              {isOverspending ? `Déficit: R$ ${Math.abs(netTotal).toFixed(2)}` : `Superávit: R$ ${netTotal.toFixed(2)}`}
             </CardDescription>
           </div>
           <Select value={timeFilter} onValueChange={setTimeFilter}>
@@ -99,9 +99,9 @@ export function IncomeVsExpenseChart({ transactions }: IncomeVsExpenseChartProps
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="week">Weekly</SelectItem>
-              <SelectItem value="month">Monthly</SelectItem>
-              <SelectItem value="year">Yearly</SelectItem>
+              <SelectItem value="week">Semanal</SelectItem>
+              <SelectItem value="month">Mensal</SelectItem>
+              <SelectItem value="year">Anual</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -121,30 +121,30 @@ export function IncomeVsExpenseChart({ transactions }: IncomeVsExpenseChartProps
                 />
                 <YAxis />
                 <Legend />
-                <Bar dataKey="income" fill="#22c55e" name="Income" />
-                <Bar dataKey="expenses" fill="#ef4444" name="Expenses" />
+                <Bar dataKey="income" fill="#22c55e" name="Receitas" />
+                <Bar dataKey="expenses" fill="#ef4444" name="Despesas" />
               </BarChart>
             </ResponsiveContainer>
           </div>
         ) : (
           <div className="flex items-center justify-center h-[300px] text-muted-foreground">
-            No data available for the selected period
+            Nenhum dado disponível para o período selecionado
           </div>
         )}
 
         <div className="mt-4 grid grid-cols-3 gap-2 sm:gap-4 text-xs sm:text-sm">
           <div className="text-center">
-            <div className="font-medium text-green-600">Total Income</div>
-            <div className="text-lg font-bold">${totalIncome.toFixed(2)}</div>
+            <div className="font-medium text-green-600">Total de Receitas</div>
+            <div className="text-lg font-bold">R$ {totalIncome.toFixed(2)}</div>
           </div>
           <div className="text-center">
-            <div className="font-medium text-red-600">Total Expenses</div>
-            <div className="text-lg font-bold">${totalExpenses.toFixed(2)}</div>
+            <div className="font-medium text-red-600">Total de Despesas</div>
+            <div className="text-lg font-bold">R$ {totalExpenses.toFixed(2)}</div>
           </div>
           <div className="text-center">
-            <div className="font-medium">Net</div>
+            <div className="font-medium">Saldo</div>
             <div className={`text-lg font-bold ${netTotal >= 0 ? "text-green-600" : "text-red-600"}`}>
-              ${netTotal.toFixed(2)}
+              R$ {netTotal.toFixed(2)}
             </div>
           </div>
         </div>
